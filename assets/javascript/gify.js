@@ -38,7 +38,29 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response);
+            // console.log(response.data);
+
+            var results = response.data;
+
+
+            results.forEach(gif => {
+
+                console.log(gif);
+                console.log(gif.rating);
+
+                var r = $("<h3>");
+
+                r.addClass("ratingText");
+
+                r.text(gif.rating);
+
+                $(".gif-zone").append(r);
+
+            });
+
+
+
+
         });
 
 
