@@ -48,13 +48,26 @@ $(document).ready(function () {
                 console.log(gif);
                 console.log(gif.rating);
 
+                var gifDiv = $("<div>");
+
                 var r = $("<h3>");
+
+                var stillGif = gif.images.fixed_height_still.url;
+                // var movingGif = gif.images.fixed_height.url;
+
+                var gifImg = $('<img' + ' src="' + stillGif + '">');
+
+                // gifImg.attr("data-moving", movingGif);
+
+                gifDiv.addClass("gif-box");
 
                 r.addClass("ratingText");
 
                 r.text(gif.rating);
 
-                $(".gif-zone").append(r);
+                gifDiv.append(r, gifImg);
+
+                $(".gif-zone").append(gifDiv);
 
             });
 
