@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 
-    var topics = ["dog", "fox", "bear", "cat", "sloth"];
+    var topics = ["dog", "rat", "bear", "cat", "sloth"];
 
 
     // var apiKey = "LU5QsIl3S1DSEVAfaJpYZcM6rrQs91Y1";
@@ -30,6 +30,8 @@ $(document).ready(function () {
     // temporary click function for pre-generated buttons
     $(".topic").on("click", function () {
 
+        $(".gif-zone").empty();
+
         var apiKey = "LU5QsIl3S1DSEVAfaJpYZcM6rrQs91Y1";
 
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + $(this).text() + "&api_key=" + apiKey + "&limit=10";
@@ -53,17 +55,19 @@ $(document).ready(function () {
                 var r = $("<h3>");
 
                 var stillGif = gif.images.fixed_height_still.url;
-                // var movingGif = gif.images.fixed_height.url;
+                var movingGif = gif.images.fixed_height.url;
 
                 var gifImg = $('<img' + ' src="' + stillGif + '">');
 
-                // gifImg.attr("data-moving", movingGif);
-
                 gifDiv.addClass("gif-box");
 
-                r.addClass("ratingText");
+                gifImg.addClass("gif");
+                gifImg.attr("data-moving", movingGif);
+                gifImg.attr("data-still", stillGif);
+                gifImg.attr("data-state", "still");
 
-                r.text(gif.rating);
+                r.addClass("ratingText");
+                r.text("Rating: " + gif.rating);
 
                 gifDiv.append(r, gifImg);
 
@@ -71,11 +75,39 @@ $(document).ready(function () {
 
             });
 
-
-
-
         });
 
+        // $(".gif").on("click", function () {
+
+        //     var state = $(this).attr("data-state");
+
+        //     if (state === "still") {
+        //         $(this.attr("src", movingGif));
+        //         $(this).attr("data-state", "moving");
+        //     } else {
+        //         $(this.attr("src", stillGif));
+        //         $(this).attr("data-state", "still");
+        //     };
+
+
+        // });
+
+        $(document).on("click", ".gif", function () {
+
+            var state = $(this).attr("data-state");
+
+            var movingSrc = $(this).attr("data-moving");
+            var stillSrc = $(this).attr("data-still");
+
+            if (state === "still") {
+                $(this).attr("src", movingSrc);
+                $(this).attr("data-state", "moving");
+            } else {
+                $(this).attr("src", stillSrc);
+                $(this).attr("data-state", "still");
+            };
+
+        });
 
     });
 
