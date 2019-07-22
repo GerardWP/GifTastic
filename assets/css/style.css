@@ -1,15 +1,47 @@
+h3 {
+    margin: 10px 0;
+    font-family: "Helvetica";
+    color: rgb(82, 82, 82);
+    font-size: .9em;
+    text-transform: uppercase;
+}
+
 .ratingText {
     display: inline-block;
     font-weight: bold;
+}
+
+.button-zone {
+    display: flex;
+    flex-flow: row wrap;
 }
 
 .gif-box {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+    margin: 0 5px 5px 0;
+    background: #eee;
 }
 
 .gif-zone {
     display: flex;
     flex-flow: row wrap;
+}
+
+.topic {
+    color: #eee;
+    background: rgb(59, 78, 85);
+    font-size: 1em;
+    margin: 0 10px 10px 0;
+    padding: 5px 25px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    transition-duration: 200ms;
+}
+
+.topic:hover {
+    color: rgb(255, 255, 255);
+    background: rgb(74, 113, 128);
 }

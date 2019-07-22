@@ -1,12 +1,10 @@
 $(document).ready(function () {
 
 
-    var topics = ["dog", "rat", "bear", "cat", "sloth"];
+    var topics = ["Stranger Things", "The Simpsons", "Rick and Morty", "Westworld", "Breaking Bad", "Adventure Time", "Dragonball Z",
+        "Bojack Horseman", "The Office", "Game of Thrones", "Survivor"
+    ];
 
-
-    // var apiKey = "LU5QsIl3S1DSEVAfaJpYZcM6rrQs91Y1";
-
-    // var queryUrl = "https://api.giphy.com/v1/gifs/search?q=" + topics[i] + "&api_key=" + apiKey + "&limit=10";
 
     function createButtons() {
 
@@ -34,7 +32,7 @@ $(document).ready(function () {
 
         var apiKey = "LU5QsIl3S1DSEVAfaJpYZcM6rrQs91Y1";
 
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + $(this).text() + "&api_key=" + apiKey + "&limit=10";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + $(this).text().toLowerCase() + "&api_key=" + apiKey + "&limit=10";
 
         $.ajax({
             url: queryURL,
@@ -77,20 +75,6 @@ $(document).ready(function () {
 
         });
 
-        // $(".gif").on("click", function () {
-
-        //     var state = $(this).attr("data-state");
-
-        //     if (state === "still") {
-        //         $(this.attr("src", movingGif));
-        //         $(this).attr("data-state", "moving");
-        //     } else {
-        //         $(this.attr("src", stillGif));
-        //         $(this).attr("data-state", "still");
-        //     };
-
-
-        // });
 
         $(document).on("click", ".gif", function () {
 
