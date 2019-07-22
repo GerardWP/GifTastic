@@ -1,3 +1,18 @@
+section {
+    display: flex;
+    flex-flow: row;
+}
+
+.form-box {
+    min-width: 370px;
+    text-align: left;
+    padding-right: 15px;
+}
+
+input#new-gif {
+    width: 100%;
+}
+
 h3 {
     margin: 10px 0;
     font-family: "Helvetica";

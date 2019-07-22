@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 
-    var topics = ["Stranger Things", "The Simpsons", "Rick and Morty", "Westworld", "Breaking Bad", "Adventure Time", "Dragonball Z",
+    var topics = ["Seinfeld", "Stranger Things", "The Simpsons", "Rick and Morty", "Westworld", "Breaking Bad", "Adventure Time", "Dragonball Z",
         "Bojack Horseman", "The Office", "Game of Thrones", "Survivor"
     ];
 
@@ -25,8 +25,7 @@ $(document).ready(function () {
     createButtons();
 
 
-    // temporary click function for pre-generated buttons
-    $(".topic").on("click", function () {
+    $(document).on("click", ".topic", function () {
 
         $(".gif-zone").empty();
 
@@ -95,7 +94,20 @@ $(document).ready(function () {
 
     });
 
+    $("#add-gif").on("click", function () {
 
+        event.preventDefault();
+
+        $(".button-zone").empty();
+
+        var newGif = $("#new-gif").val().trim();
+
+        topics.push(newGif);
+
+        createButtons();
+
+
+    });
 
 
 
