@@ -1,6 +1,6 @@
 section {
     display: flex;
-    flex-flow: row;
+    flex-flow: row-reverse;
 }
 
 .form-box {
@@ -15,15 +15,29 @@ input#new-gif {
 
 h3 {
     margin: 10px 0;
-    font-family: "Helvetica";
     color: rgb(82, 82, 82);
+    font-family: "Helvetica";
     font-size: .9em;
     text-transform: uppercase;
-}
-
-.ratingText {
     display: inline-block;
     font-weight: bold;
+}
+
+.fav-button {
+    margin: 10px 0;
+    font-family: "Helvetica";
+    color: #eee;
+    background: rgb(126, 127, 129);
+    border: none;
+    border-radius: 4px;
+    padding: 3px 15px;
+    transition-duration: 200ms;
+    cursor: pointer;
+}
+
+.fav-button:hover {
+    color: #fff;
+    background: rgb(72, 179, 90);
 }
 
 .button-zone {
@@ -37,6 +51,7 @@ h3 {
     align-items: center;
     margin: 0 5px 5px 0;
     background: #eee;
+    border-radius: 4px;
 }
 
 .gif-zone {
@@ -54,6 +69,7 @@ h3 {
     border: none;
     border-radius: 4px;
     transition-duration: 200ms;
+    cursor: pointer;
 }
 
 .topic:hover {

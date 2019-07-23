@@ -10,19 +10,22 @@ $(document).ready(function () {
 
         $(".button-zone").empty();
 
-        for (var i = 0; i < topics.length; i++) {
+        topics.forEach(i => {
 
             var pageBtn = $("<button>");
 
             pageBtn.addClass("topic");
-            pageBtn.attr("data-name", topics[i]);
-            pageBtn.text(topics[i]);
+            pageBtn.attr("data-name", i);
+            pageBtn.text(i);
             $(".button-zone").append(pageBtn);
-        };
+
+        });
 
     };
 
     createButtons();
+
+
 
 
     $(document).on("click", ".topic", function () {
@@ -37,19 +40,19 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            // console.log(response.data);
+
+            console.log(response);
 
             var results = response.data;
 
-
             results.forEach(gif => {
 
-                console.log(gif);
-                console.log(gif.rating);
-
                 var gifDiv = $("<div>");
-
                 var r = $("<h3>");
+
+                var favBtn = $("<button>");
+                favBtn.addClass("fav-button");
+                favBtn.text("Save to Favourites");
 
                 var stillGif = gif.images.fixed_height_still.url;
                 var movingGif = gif.images.fixed_height.url;
@@ -63,10 +66,9 @@ $(document).ready(function () {
                 gifImg.attr("data-still", stillGif);
                 gifImg.attr("data-state", "still");
 
-                r.addClass("ratingText");
                 r.text("Rating: " + gif.rating);
 
-                gifDiv.append(r, gifImg);
+                gifDiv.append(r, gifImg, favBtn);
 
                 $(".gif-zone").append(gifDiv);
 
