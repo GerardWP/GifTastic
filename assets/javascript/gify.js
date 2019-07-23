@@ -45,26 +45,24 @@ $(document).ready(function () {
 
             var results = response.data;
 
-            results.forEach(gif => {
 
-                var gifDiv = $("<div>");
-                var r = $("<h3>");
 
-                var favBtn = $("<button>");
-                favBtn.addClass("fav-button");
-                favBtn.text("Save to Favourites");
+            results.forEach((gif, index) => {
 
                 var stillGif = gif.images.fixed_height_still.url;
                 var movingGif = gif.images.fixed_height.url;
 
+                var gifDiv = $("<div>");
+                var r = $("<h3>");
                 var gifImg = $('<img' + ' src="' + stillGif + '">');
+                var favBtn = $("<button>");
+
+                favBtn.addClass("fav-button").attr("data", "gif-" + (index + 1)).text("Save to Favourites");
 
                 gifDiv.addClass("gif-box");
 
-                gifImg.addClass("gif");
-                gifImg.attr("data-moving", movingGif);
-                gifImg.attr("data-still", stillGif);
-                gifImg.attr("data-state", "still");
+                gifImg.addClass("gif").attr("id", "gif-" + (index + 1));
+                gifImg.attr("data-moving", movingGif).attr("data-still", stillGif).attr("data-state", "still");
 
                 r.text("Rating: " + gif.rating);
 
@@ -102,12 +100,14 @@ $(document).ready(function () {
 
         $(".button-zone").empty();
 
+
         var newGif = $("#new-gif").val().trim();
 
         topics.push(newGif);
 
         createButtons();
 
+        $("#new-gif").val("");
 
     });
 
