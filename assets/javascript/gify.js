@@ -23,96 +23,136 @@ $(document).ready(function () {
 
     };
 
+    var storedFavs = localStorage.getItem("favGifs");
+
+    var storedArray = JSON.parse(storedFavs);
+
+    createFavs(storedArray);
+
     createButtons();
 
+});
 
+$(document).on("click", ".topic", function () {
 
+    $(".gif-zone").empty();
 
-    $(document).on("click", ".topic", function () {
+    var apiKey = "LU5QsIl3S1DSEVAfaJpYZcM6rrQs91Y1";
 
-        $(".gif-zone").empty();
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + $(this).text().toLowerCase() + "&api_key=" + apiKey + "&limit=10";
 
-        var apiKey = "LU5QsIl3S1DSEVAfaJpYZcM6rrQs91Y1";
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
 
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + $(this).text().toLowerCase() + "&api_key=" + apiKey + "&limit=10";
+        console.log(response);
 
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function (response) {
+        var results = response.data;
 
-            console.log(response);
+        results.forEach((gif, index) => {
 
-            var results = response.data;
+            var stillGif = gif.images.fixed_height_still.url;
+            var movingGif = gif.images.fixed_height.url;
 
+            var gifDiv = $("<div>");
+            var r = $("<h3>");
+            var gifImg = $('<img' + ' src="' + stillGif + '">');
+            var favBtn = $("<button>");
 
+            favBtn.addClass("fav-button").attr("data", "gif-" + (index + 1)).text("Save to Favourites");
 
-            results.forEach((gif, index) => {
+            gifDiv.addClass("gif-box");
 
-                var stillGif = gif.images.fixed_height_still.url;
-                var movingGif = gif.images.fixed_height.url;
+            gifImg.addClass("gif").attr("id", "gif-" + (index + 1));
+            gifImg.attr("data_moving", movingGif).attr("data_still", stillGif).attr("data_state", "still");
 
-                var gifDiv = $("<div>");
-                var r = $("<h3>");
-                var gifImg = $('<img' + ' src="' + stillGif + '">');
-                var favBtn = $("<button>");
+            r.text("Rating: " + gif.rating);
 
-                favBtn.addClass("fav-button").attr("data", "gif-" + (index + 1)).text("Save to Favourites");
+            gifDiv.append(r, gifImg, favBtn);
 
-                gifDiv.addClass("gif-box");
-
-                gifImg.addClass("gif").attr("id", "gif-" + (index + 1));
-                gifImg.attr("data-moving", movingGif).attr("data-still", stillGif).attr("data-state", "still");
-
-                r.text("Rating: " + gif.rating);
-
-                gifDiv.append(r, gifImg, favBtn);
-
-                $(".gif-zone").append(gifDiv);
-
-            });
-
-        });
-
-
-        $(document).on("click", ".gif", function () {
-
-            var state = $(this).attr("data-state");
-
-            var movingSrc = $(this).attr("data-moving");
-            var stillSrc = $(this).attr("data-still");
-
-            if (state === "still") {
-                $(this).attr("src", movingSrc);
-                $(this).attr("data-state", "moving");
-            } else {
-                $(this).attr("src", stillSrc);
-                $(this).attr("data-state", "still");
-            };
+            $(".gif-zone").append(gifDiv);
 
         });
 
     });
 
-    $("#add-gif").on("click", function () {
-
-        event.preventDefault();
-
-        $(".button-zone").empty();
-
-
-        var newGif = $("#new-gif").val().trim();
-
-        topics.push(newGif);
-
-        createButtons();
-
-        $("#new-gif").val("");
-
-    });
 
 
 
+});
 
+
+
+var gifArray = [];
+
+$(document).on("click", ".fav-button", function () {
+
+
+    var targetGif = $(this).siblings('img');
+
+    var gifData = targetGif[0].attributes;
+
+    // console.log([gifData[3].value, gifData[4].value]);
+
+    var saveGif = [gifData[3].value, gifData[4].value];
+
+    gifArray.push(saveGif);
+
+    localStorage.setItem("favGifs", JSON.stringify(gifArray));
+
+    console.log(gifArray);
+
+    $(".fav-box").empty();
+
+    createFavs(gifArray);
+
+});
+
+
+function createFavs(x) {
+
+    for (var i = 0; i < x.length; i++) {
+
+        var favGif = $('<img ' + 'style="margin: 0 4px 4px 0" src="' + x[i][1] + '">');
+        favGif.addClass(".gif").attr("data_moving", x[i][0]).attr("data_still", x[i][1]).attr("data_state", "still");
+
+        $(".fav-box").append(favGif);
+    }
+
+};
+
+
+$(document).on("click", ".gif", function () {
+
+    var state = $(this).attr("data_state");
+
+    var movingSrc = $(this).attr("data_moving");
+    var stillSrc = $(this).attr("data_still");
+
+    if (state === "still") {
+        $(this).attr("src", movingSrc);
+        $(this).attr("data_state", "moving");
+    } else {
+        $(this).attr("src", stillSrc);
+        $(this).attr("data_state", "still");
+    };
+
+});
+
+$("#add-gif").on("click", function () {
+
+    event.preventDefault();
+
+    $(".button-zone").empty();
+
+
+    var newGif = $("#new-gif").val().trim();
+
+    topics.push(newGif);
+
+    createButtons();
+
+    $("#new-gif").val("");
 
 });
