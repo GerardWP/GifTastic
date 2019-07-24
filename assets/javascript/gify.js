@@ -23,13 +23,12 @@ $(document).ready(function () {
 
     };
 
-    var storedFavs = localStorage.getItem("favGifs");
-
-    var storedArray = JSON.parse(storedFavs);
-
-    createFavs(storedArray);
-
+    console.log(storedArray);
+    fromSaved();
+    console.log(gifArray);
     createButtons();
+
+
 
 });
 
@@ -77,37 +76,47 @@ $(document).on("click", ".topic", function () {
 
     });
 
-
-
-
 });
-
-
+var storedArray;
+var storedFavs;
 
 var gifArray = [];
-
 $(document).on("click", ".fav-button", function () {
-
 
     var targetGif = $(this).siblings('img');
 
     var gifData = targetGif[0].attributes;
 
-    // console.log([gifData[3].value, gifData[4].value]);
-
     var saveGif = [gifData[3].value, gifData[4].value];
 
     gifArray.push(saveGif);
-
-    localStorage.setItem("favGifs", JSON.stringify(gifArray));
 
     console.log(gifArray);
 
     $(".fav-box").empty();
 
-    createFavs(gifArray);
+    localStorage.setItem("favGifs", JSON.stringify(gifArray));
 
+    console.log(storedArray)
+
+    createFavs(gifArray);
+    // fromSaved();
 });
+
+var storedFavs = localStorage.getItem("favGifs");
+
+var storedArray = JSON.parse(storedFavs);
+
+function fromSaved() {
+
+    if (storedArray) {
+        for (var i = 0; i < storedArray.length; i++) {
+            gifArray.push(storedArray[i])
+        };
+        createFavs(storedArray);
+    } else return;
+
+};
 
 
 function createFavs(x) {
@@ -115,12 +124,13 @@ function createFavs(x) {
     for (var i = 0; i < x.length; i++) {
 
         var favGif = $('<img ' + 'style="margin: 0 4px 4px 0" src="' + x[i][1] + '">');
-        favGif.addClass(".gif").attr("data_moving", x[i][0]).attr("data_still", x[i][1]).attr("data_state", "still");
+        favGif.addClass("gif").attr("data_moving", x[i][0]).attr("data_still", x[i][1]).attr("data_state", "still");
 
         $(".fav-box").append(favGif);
     }
 
 };
+
 
 
 $(document).on("click", ".gif", function () {
