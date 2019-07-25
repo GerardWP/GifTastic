@@ -1,6 +1,16 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
 body {
     color: #fff;
-    background: #0c0c0c;
+    /* background: #0c0c0c; */
     margin: 0;
 }
 
@@ -48,9 +58,6 @@ section {
 }
 
 
-.gif {
-    border-radius: 4px;
-}
 
 input#new-gif {
     width: 100%;
@@ -68,7 +75,7 @@ form {
 
 h3 {
     margin: 5px 0 10px;
-    color: rgb(41, 41, 41);
+    color: rgba(255, 255, 255, 0.836);
     font-family: "Helvetica";
     font-size: .9em;
     text-transform: uppercase;
@@ -81,17 +88,17 @@ h3 {
     font-family: "Helvetica";
     color: #eee;
     font-weight: bold;
-    background: rgb(90, 91, 92);
+    background: rgb(108, 121, 134);
     border: none;
     border-radius: 4px;
-    padding: 5px 20px;
+    padding: 6px 25px;
     transition-duration: 200ms;
     cursor: pointer;
 }
 
 .fav-button:hover {
     color: #fff;
-    background: #23335c;
+    background: rgb(134, 154, 175);
 }
 
 .button-zone {
@@ -100,24 +107,17 @@ h3 {
     padding: 10px 10px 0;
 }
 
-.favourites {
-    background: #252c3d;
-    padding: 10px;
-    min-height: 100vh;
-    grid-column: 2/3;
-    grid-row: 1/2;
-
-}
-
 .gif-area {
     /* width: 75%; */
+    background: url(../images/bg.png) no-repeat bottom left #01040b;
+    background-size: cover;
     grid-column: 1/2;
     grid-row: 1/2;
 }
 
 .main-content {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 3fr 380px;
     grid-row: 1fr;
 }
 
@@ -127,7 +127,7 @@ h3 {
     background: #72b9bf;
     color: #fff;
     font-weight: bolder;
-    width: 10%;
+    width: 120px;
     transition-duration: 200ms;
 }
 
@@ -141,10 +141,38 @@ h3 {
     flex-flow: column nowrap;
     align-items: center;
     margin: 0 5px 5px 0;
-    background: #eee;
+    background: #252c3d;
     border-radius: 4px;
-    padding: 5px;
+    padding: 5px 0;
     /* max-height: 267px; */
+}
+
+.favourites {
+    background: #252c3d;
+    padding: 10px;
+    min-height: 100vh;
+    grid-column: 2/3;
+    grid-row: 1/2;
+    text-align: center;
+
+}
+
+.remove-btn {
+    margin: 5px 0 10px;
+    display: block;
+    background: #252c3d;
+    padding: 4px 25px;
+    color: #72b9bf;
+    border-color: #72b9bf;
+    border-radius: 4px;
+    text-transform: uppercase;
+    transition-duration: 200ms;
+
+}
+
+.remove-btn:hover {
+    background: #72b9bf;
+    color: #252c3d;
 }
 
 .gif-zone {
@@ -165,6 +193,7 @@ h3 {
     border-radius: 4px;
     transition-duration: 200ms;
     cursor: pointer;
+    border: 2px solid #72b9bf;
 }
 
 

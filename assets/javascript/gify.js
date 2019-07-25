@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
 
-    var topics = ["Seinfeld", "Stranger Things", "The Simpsons", "Brookly Nine Nine", "Rick and Morty", "Westworld", "Breaking Bad", "Adventure Time", "Dragonball Z",
-        "Bojack Horseman", "The Office", "Game of Thrones", "Survivor"
+    var topics = ["Seinfeld", "Stranger Things", "The Simpsons", "Brookly Nine Nine", "Rick and Morty", "Breaking Bad", "Adventure Time", "Dragonball Z",
+        "Bojack Horseman", "The Office", "Always Sunny in Philadelphia"
     ];
 
 
@@ -43,7 +43,7 @@ $(document).ready(function () {
     fromSaved();
     createButtons();
 
-
+    // to remove from favourites, try splicing from the gifArray, and then recreateing the favourites section
 
 });
 
@@ -132,10 +132,16 @@ function createFavs(x) {
 
     for (var i = 0; i < x.length; i++) {
 
+        var gifWrap = $("<div>");
+        var removeBtn = $("<button>")
         var favGif = $('<img ' + 'src="' + x[i][1] + '">');
-        favGif.addClass("gif fav-gif").attr("data_moving", x[i][0]).attr("data_still", x[i][1]).attr("data_state", "still");
 
-        $(".stored-favs").append(favGif);
+        removeBtn.text("Remove").addClass("remove-btn");
+        favGif.addClass("gif fav-gif").attr("data_moving", x[i][0]).attr("data_still", x[i][1]).attr("data_state", "still");
+        gifWrap.addClass("gif-box");
+        gifWrap.append(favGif).append(removeBtn);
+
+        $(".stored-favs").append(gifWrap);
     }
 
 };
