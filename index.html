@@ -9,25 +9,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/reset.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <div class="button-zone"></div>
+    <header>
+        <i class="material-icons">
+            live_tv
+        </i>
+        <h1>TV Show Gif Generator</h1>
+    </header>
 
-    <section>
-        <div class="form-box">
+    <div class="main-content">
+        <div class="gif-area">
             <form id="gif-form">
-                <label for="new-gif">Add a Tv Show!</label><br>
-                <input type="text" id="new-gif"><br>
-                <input id="add-gif" type="submit" value="Submit Show">
+                <input type="text" id="new-gif">
+                <button id="add-gif">Add a Show</button>
             </form>
-            <div class="fav-box"></div>
+            <div class="button-zone"></div>
+
+            <section>
+
+                <div class="gif-zone"></div>
+
+            </section>
         </div>
-
-        <div class="gif-zone"></div>
-
-    </section>
+        <div class="favourites">
+            <h2>Favourite Gifs</h2>
+            <div class="stored-favs"></div>
+        </div>
+    </div>
 
     <script type="text/javascript" src="./assets/javascript/gify.js"></script>
 </body>

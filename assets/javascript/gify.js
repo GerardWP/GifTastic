@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 
-    var topics = ["Seinfeld", "Stranger Things", "The Simpsons", "Rick and Morty", "Westworld", "Breaking Bad", "Adventure Time", "Dragonball Z",
+    var topics = ["Seinfeld", "Stranger Things", "The Simpsons", "Brookly Nine Nine", "Rick and Morty", "Westworld", "Breaking Bad", "Adventure Time", "Dragonball Z",
         "Bojack Horseman", "The Office", "Game of Thrones", "Survivor"
     ];
 
@@ -23,9 +23,24 @@ $(document).ready(function () {
 
     };
 
-    console.log(storedArray);
+    $("#add-gif").on("click", function () {
+
+        event.preventDefault();
+
+        $(".button-zone").empty();
+
+
+        var newGif = $("#new-gif").val().trim();
+
+        topics.push(newGif);
+
+        createButtons();
+
+        $("#new-gif").val("");
+
+    });
+
     fromSaved();
-    console.log(gifArray);
     createButtons();
 
 
@@ -44,8 +59,6 @@ $(document).on("click", ".topic", function () {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-
-        console.log(response);
 
         var results = response.data;
 
@@ -91,16 +104,12 @@ $(document).on("click", ".fav-button", function () {
 
     gifArray.push(saveGif);
 
-    console.log(gifArray);
-
-    $(".fav-box").empty();
+    $(".stored-favs").empty();
 
     localStorage.setItem("favGifs", JSON.stringify(gifArray));
 
-    console.log(storedArray)
-
     createFavs(gifArray);
-    // fromSaved();
+
 });
 
 var storedFavs = localStorage.getItem("favGifs");
@@ -123,10 +132,10 @@ function createFavs(x) {
 
     for (var i = 0; i < x.length; i++) {
 
-        var favGif = $('<img ' + 'style="margin: 0 4px 4px 0" src="' + x[i][1] + '">');
-        favGif.addClass("gif").attr("data_moving", x[i][0]).attr("data_still", x[i][1]).attr("data_state", "still");
+        var favGif = $('<img ' + 'src="' + x[i][1] + '">');
+        favGif.addClass("gif fav-gif").attr("data_moving", x[i][0]).attr("data_still", x[i][1]).attr("data_state", "still");
 
-        $(".fav-box").append(favGif);
+        $(".stored-favs").append(favGif);
     }
 
 };
@@ -147,22 +156,5 @@ $(document).on("click", ".gif", function () {
         $(this).attr("src", stillSrc);
         $(this).attr("data_state", "still");
     };
-
-});
-
-$("#add-gif").on("click", function () {
-
-    event.preventDefault();
-
-    $(".button-zone").empty();
-
-
-    var newGif = $("#new-gif").val().trim();
-
-    topics.push(newGif);
-
-    createButtons();
-
-    $("#new-gif").val("");
 
 });
