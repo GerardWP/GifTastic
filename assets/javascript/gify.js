@@ -146,6 +146,28 @@ function createFavs(x) {
 
 };
 
+$(document).on("click", ".remove-btn", function () {
+
+    var gifRmv = $(this).siblings("img");
+    var gifRmvAtt = gifRmv[0].attributes;
+
+    var gifSplice = [gifRmvAtt[2].nodeValue, gifRmvAtt[3].nodeValue]
+
+    for (var i = 0; i < gifArray.length; i++) {
+        if (gifArray[i].includes(gifRmvAtt[2].nodeValue || gifRmvAtt[3].nodeValue)) {
+
+            gifArray.splice(i, 1);
+            $(".stored-favs").empty();
+            localStorage.setItem("favGifs", JSON.stringify(gifArray));
+            createFavs(gifArray);
+
+        };
+    };
+
+
+
+});
+
 
 
 $(document).on("click", ".gif", function () {
