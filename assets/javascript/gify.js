@@ -61,6 +61,7 @@ $(document).on("click", ".topic", function () {
     }).then(function (response) {
 
         var results = response.data;
+        console.log(response)
 
         results.forEach((gif, index) => {
 
@@ -93,7 +94,11 @@ $(document).on("click", ".topic", function () {
 var storedArray;
 var storedFavs;
 
+
 var gifArray = [];
+
+// function to create favs. pushes the moving and still data attributes into the gifArray
+// and recreates gif in favs using that data. also stores the current gifArray in localStorage so the gifs remain on page re-load
 $(document).on("click", ".fav-button", function () {
 
     var targetGif = $(this).siblings('img');
@@ -116,6 +121,9 @@ var storedFavs = localStorage.getItem("favGifs");
 
 var storedArray = JSON.parse(storedFavs);
 
+
+// fucntion to determine whether there are any gifs in localstorage, if there are, then if passes the array
+// through the createFavs function, and adds the gifs to the stored-favs section.
 function fromSaved() {
 
     if (storedArray) {
@@ -127,6 +135,8 @@ function fromSaved() {
 
 };
 
+// function to create favourites - uses gifArray when adding from the loaded page, and uses storedArray 
+// on page load, if storedArray exists
 
 function createFavs(x) {
 
@@ -146,13 +156,16 @@ function createFavs(x) {
 
 };
 
+
+// function to remove gif saved in favourite section. 
 $(document).on("click", ".remove-btn", function () {
 
     var gifRmv = $(this).siblings("img");
     var gifRmvAtt = gifRmv[0].attributes;
 
-    var gifSplice = [gifRmvAtt[2].nodeValue, gifRmvAtt[3].nodeValue]
-
+    // for loop searches gif array at each index to see if the array at each index contains the attributes
+    // held by the img being stored, if it does, then it removes that from the gifArray, empties the favourites section
+    // updates local storage, and recreates the faourites section with the updated gifArray.
     for (var i = 0; i < gifArray.length; i++) {
         if (gifArray[i].includes(gifRmvAtt[2].nodeValue || gifRmvAtt[3].nodeValue)) {
 
@@ -168,8 +181,7 @@ $(document).on("click", ".remove-btn", function () {
 
 });
 
-
-
+// Click fucntion to change state of gif from still, to moving. And visa-versa
 $(document).on("click", ".gif", function () {
 
     var state = $(this).attr("data_state");
