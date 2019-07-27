@@ -47,6 +47,8 @@ $(document).ready(function () {
 
 });
 
+// on-click fucntion quearying the API, generatring the gifs and appending them to the gif-zone
+
 $(document).on("click", ".topic", function () {
 
     $(".gif-zone").empty();
